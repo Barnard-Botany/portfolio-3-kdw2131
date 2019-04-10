@@ -1,0 +1,69 @@
+#MACROASSIGNMENT
+```{r}
+MH=read.csv("AddressPlants.csv")
+
+head(MH)
+tail(MH)
+```
+
+
+
+
+
+
+
+
+```{r}
+#If you did not already load the Package brranching, be sure to do so now. You may need to also install it. 
+#install.packages(ape)
+#install.packages("devtools")
+#devtools::install_github("ropensci/brranching")
+#library("ape")
+library("brranching")
+```
+
+
+```{r}
+taxa<-c("Acer rubrum L.", "Erigeron strigosus Muhl.exWilld.", "Parthenocissus quinquefolia (L.)Planch.", "Prunus serotina Ehrh.", "Rubus allegheniensis Porter", "Smilax rotundifolia L.", "Viburnum prunifolium L.", "Carpinus caroliniana Walt.", "Pteridium aquilinum (L.)Kuhn", "Dichanthelium depauperatum (Muhl.)Gould", "Spartina patens (Ait.)Muhl.", "Viola cucullata Ait.", "Arabis laevigata (Muhl.exWilld.)Poir.", "Asclepias tuberosa L.", "Aureolaria flava (L.)Farw.", "Celastrus scandens L.", "Cuscuta gronovii Willd.exJ.A.Schultes", "Dennstaedtia punctilobula (Michx.)T.Moore", "Erechtites hieraciifolius (L.) Raf. ex DC.", "Fragaria virginiana Duchesne", "Galium circaezans Michx.", "Galium triflorum Michx.", "Geranium maculatum L.", "Geum virginianum L.", "Hamamelis virginiana L.", "Hieracium scabrum Michx.", "Juniperus virginiana L.", "Kalmia latifolia L.", "Lactuca canadensis L.", "Lespedeza procumbens Michx.", "Lobelia inflata L.", "Lonicera sempervirens L.", "Mitchella repens L.")
+```
+
+
+```{r}
+tree_phylomatic <- phylomatic(taxa = taxa, storedtree ="R20120829", get = 'POST')
+plot(tree_phylomatic, no.margin = TRUE)
+```
+We can also write the tree into a text file, in newick format:
+
+```{r}
+newick_fk = "tree_phylomatic"
+write.tree(tree_phylomatic, file=newick_fk)
+#Go and verify that there is now a file in your working directory. Make sure you also know how to open it in another program like a workbook file. You also can copy it onto the clipboard of the computer. 
+```
+
+```{r}
+tree_phylomatic <- phylomatic(taxa = taxa, storedtree ="R20120829", get = 'POST')
+plot(tree_phylomatic, no.margin = TRUE, type= "cladogram")
+```
+
+```{r}
+#If you want to make sure it is in your directory, first figure out your working directory
+getwd()
+#Then you can look at the window at lower right, and click to the correct director to find your saved file.
+```
+
+By the way, can save any displayed tree to PDF, or do a screen capture etc.
+you can also save a tree to PDF as shown below. 
+
+```{r}
+pdf_fn = "newick_fk.pdf"
+pdf(file=pdf_fn)
+plot(tree_phylomatic, no.margin = TRUE, type= "phylogram")
+dev.off()
+```
+
+In Macs (and maybe PCs), this will open the PDF from R:
+
+```{r}
+cmdstr = paste("open ", pdf_fn, sep="")
+system(cmdstr)
+```
